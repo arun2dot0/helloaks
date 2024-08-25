@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloapp
+  template:
+    metadata:
+      labels:
+        app: helloapp
+    spec:
+      imagePullSecrets:
+        - name: acr-auth
+      containers:
+        - name: helloapp
+          image: myacr.azurecr.io/hello-app:2.0
+          ports:
+            - containerPort: 8080
